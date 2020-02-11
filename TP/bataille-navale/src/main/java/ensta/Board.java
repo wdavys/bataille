@@ -3,8 +3,8 @@
 public class Board implements IBoard{
     private String name;
     private int size;
-    private char[][] ships;
-    private boolean[][] hits;
+    private ShipState[][] ships;
+    private Boolean[][] hits;
 
     public Board(String name, int size){
         this.name=name;
@@ -94,7 +94,7 @@ public class Board implements IBoard{
                 case NORTH :
                     putShipAux(ship, x, y, 0, -1);
                 break;
-                case SOUTH: 
+                case SOUTH : 
                     putShipAux(ship, x, y, 0, 1);
                 break;
                 case WEST :
@@ -116,5 +116,10 @@ public class Board implements IBoard{
 
     public Boolean getHit(int x, int y){
         return(hits[x][y]);
+    }
+
+    public Hit sendHit(int x, int y) {
+
+        return 
     }
 }
