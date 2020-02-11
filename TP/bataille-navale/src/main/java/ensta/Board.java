@@ -1,4 +1,6 @@
-public class Board implements IBoard{
+package ensta;
+
+public class Board implements IBoard {
     private String name;
     private int size;
     private char[][] ships;
@@ -63,28 +65,53 @@ public class Board implements IBoard{
         }
     }
 
-    int getSize(){
-        return(size);
+    public int getSize() {
+        return (size);
     }
 
     void putShipAux(AbstractShip ship, int x, int y, int ix, int iy){
-        for (int i=0; i<ship.taille ; i++){
-            ships[x+ix*i][y+iy*i]=ship.label;
+        for (int i=0; i<ship.getSize() ; i++){
+            ships[x+ix*i][y+iy*i]=ship.getLabel();
         }
     }
 
-    void putShip(AbstractShip ship, int x, int y){
-        switch (ship.orientation){
-            case Orientation.EAST : 
+    public void putShip(AbstractShip ship, int x, int y) {
+        switch (ship.getOrientation()) {
+        case Orientation.EAST:
             try {
                 putShipAux(ship, x, y, 1, 0);
             } catch (Exception e) {
-                //TODO: handle exception
-            };
+                // TODO: handle exception
+            }
+            ;
             break;
-            case Orientation.NORTH : ;break;
-            case Orientation.SOUTH: ;break;
-            case Orientation.WEST : ;break;
+        case Orientation.NORTH:
+            ;
+            break;
+        case Orientation.SOUTH:
+            ;
+            break;
+        case Orientation.WEST:
+            ;
+            break;
         }
+    }
+
+    @Override
+    public boolean hasShip(int x, int y) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void setHit(boolean hit, int x, int y) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public Boolean getHit(int x, int y) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
