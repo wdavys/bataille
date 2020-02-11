@@ -1,10 +1,19 @@
-//package ensta;
+import com.sun.org.apache.regexp.internal.recompile;
 
 abstract class AbstractShip {
     private final char label;
     private final String nom;
     private final int size;
     private Orientation orientation;
+    private int strikeCount;
+
+    public void addStrike(){
+        strikeCount++;
+    }
+
+    public boolean isStunk(){
+        return(strikeCount==size);
+    }
 
     public char getLabel() {
         return label;
