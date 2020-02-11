@@ -1,6 +1,6 @@
-package ensta;
+//package ensta;
 
-public class Board implements IBoard {
+public class Board implements IBoard{
     private String name;
     private int size;
     private char[][] ships;
@@ -65,53 +65,56 @@ public class Board implements IBoard {
         }
     }
 
-    public int getSize() {
-        return (size);
+    public int getSize(){
+        return(size);
     }
 
-    void putShipAux(AbstractShip ship, int x, int y, int ix, int iy){
-        for (int i=0; i<ship.getSize() ; i++){
-            ships[x+ix*i][y+iy*i]=ship.getLabel();
-        }
+    public boolean hasShip(int x, int y){
+        char ship_test=ships[x][y];
+        return(ship_test!='D' && ship_test!='S' && ship_test!='B' && ship_test!='C');
     }
 
-    public void putShip(AbstractShip ship, int x, int y) {
-        switch (ship.getOrientation()) {
-        case Orientation.EAST:
-            try {
-                putShipAux(ship, x, y, 1, 0);
-            } catch (Exception e) {
-                // TODO: handle exception
+    public void putShipAux(AbstractShip ship, int x, int y, int ix, int iy)throws Exception {
+        for (int i=0; i<ship.getSize(); i++){
+            if (hasShip(x+ix*i, y+iy*i)){
+                throw new Exception();
             }
-            ;
-            break;
-        case Orientation.NORTH:
-            ;
-            break;
-        case Orientation.SOUTH:
-            ;
-            break;
-        case Orientation.WEST:
-            ;
-            break;
+            else {
+                ships[x+ix*i][y+iy*i]=ship.getLabel();
+            }
+        } 
+    }
+
+    public void putShip(AbstractShip ship, int x, int y) throws Exception{
+        try {
+            switch (ship.getOrientation()){
+                case EAST : 
+                    putShipAux(ship, x, y, 1, 0);
+                break;
+                case NORTH :
+                    putShipAux(ship, x, y, 0, -1);
+                break;
+                case SOUTH: 
+                    putShipAux(ship, x, y, 0, 1);
+                break;
+                case WEST :
+                    putShipAux(ship, x, y, -1, 0);
+                break;
+            }
+        } catch (Exception e) {
+            System.err.println("Le bateau sort du champ de bataille ou recouvre un autre bateau, essayez à nouveau.");
+            throw e;
+        };
+    }
+
+
+    public void setHit(boolean hit, int x, int y){
+        if (hasShip(x, y)){
+            hits[x][y]=hit;
         }
     }
 
-    @Override
-    public boolean hasShip(int x, int y) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void setHit(boolean hit, int x, int y) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public Boolean getHit(int x, int y) {
-        // TODO Auto-generated method stub
-        return null;
+    public Boolean getHit(int x, int y){
+        return(hits[x][y]);
     }
 }

@@ -1,4 +1,4 @@
-package ensta;
+//package ensta;
 
 abstract class AbstractShip {
     private final char label;
