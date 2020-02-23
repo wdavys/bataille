@@ -84,8 +84,7 @@ public class Board implements IBoard{
     }
 
     public boolean hasShip(int x, int y){
-        char ship_test=ships[x][y].getShip().getLabel();
-        return(ship_test!='D' && ship_test!='S' && ship_test!='B' && ship_test!='C');
+        return (ships[x][y].getShip() != null);
     }
 
     public void putShipAux(AbstractShip ship, int x, int y, int ix, int iy)throws Exception {
