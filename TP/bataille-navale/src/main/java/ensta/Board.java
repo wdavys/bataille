@@ -9,8 +9,14 @@ public class Board implements IBoard{
     public Board(String name, int size){
         this.name=name;
         this.size=size;
-        ships=new char[size][size];
-        hits=new boolean[size][size];
+        ships=new ShipState[size][size];
+        hits=new Boolean[size][size];
+
+        for (int i=0; i<size; i++){
+            for (int j=0; j<size; j++){
+                ships[i][j]=new ShipState(null);
+            }
+        }
     }
 
     public Board(String name){
@@ -38,8 +44,8 @@ public class Board implements IBoard{
             System.out.print(i);
             System.out.print(" ");
             for(int j=0;j<size ; j++){
-                char x=ships[i][j];
-                if(x=='D' || x=='S' || x=='B' || x=='C'){
+                ShipState x=ships[i][j];
+                if(x.getShip){
                     System.out.print(x);
                 }
                 else{
@@ -70,7 +76,7 @@ public class Board implements IBoard{
     }
 
     public boolean hasShip(int x, int y){
-        char ship_test=ships[x][y];
+        ShipState ship_test=ships[x][y];
         return(ship_test!='D' && ship_test!='S' && ship_test!='B' && ship_test!='C');
     }
 

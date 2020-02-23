@@ -11,7 +11,7 @@ abstract class AbstractShip {
         strikeCount++;
     }
 
-    public boolean isStunk(){
+    public boolean isSunk(){
         return(strikeCount==size);
     }
 

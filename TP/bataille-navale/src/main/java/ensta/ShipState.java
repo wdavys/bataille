@@ -14,4 +14,17 @@ public class ShipState{
     public boolean isStruck(){
         return(struck);
     }
+
+    public String toString(){
+        if (struck){
+            return(colorize(ship.getLabel(),RED));
+        }
+        else {
+            return(ship.getLabel());
+        } 
+    }
+
+    public AbstractShip getShip(){
+        return(ship);
+    } 
 }
