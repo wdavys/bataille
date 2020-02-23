@@ -131,10 +131,18 @@ public class Board implements IBoard{
         return(hits[x][y]);
     }
 
-    /*public Hit sendHit(int x, int y) {
+    public Hit sendHit(int x, int y) {
         if (hasShip(x, y)) {
-            hits[][] = true;
+            if (ships[x][y].getShip().isSunk()) {
+                switch (ships[x][y].getShip().getLabel()) {
+                    case 'D' : return Hit.DESTROYER;
+                    case 'S' : return Hit.SUBMARINE;
+                    case 'C' : return Hit.CARRIER;
+                    case 'B' : return Hit.BATTLESHIP;
+                }
+            }
+            else return Hit.STRIKE;
         }
-        return 
-    }*/
+        return Hit.MISS;
+    }
 }
