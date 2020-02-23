@@ -38,34 +38,39 @@ public class Board implements IBoard{
             System.out.print(" ");
         }
         System.out.println();
-
+        
         for (int i=0; i<size; i++){
-            if(i<10) System.out.print(" ");
+
+            //Partie affichant les navires.
+            if(i<10) System.out.print(' ');
             System.out.print(i);
-            System.out.print(" ");
+            System.out.print(' ');
             for(int j=0;j<size ; j++){
                 ShipState x=ships[i][j];
-                if(x.getShip){
-                    System.out.print(x);
-                }
-                else{
+                if(x.getShip()==null){
                     System.out.print('.');
                 }
-                System.out.print(" ");
+                else{
+                    System.out.print(x.getShip().getLabel());
+                }
+                System.out.print(' ');
             }
-            System.out.print(" ");
-            if(i<10) System.out.print(" ");
+
+            //Affichage des frappes
+
+            System.out.print(' ');
+            if(i<10) System.out.print(' ');
             System.out.print(i);
-            System.out.print(" ");
+            System.out.print(' ');
             for(int j=0;j<size ; j++){
                 
-                if(hits[i][j]){
-                    System.out.print('x');
-                }
-                else{
+                if(hits[i][j]==null){
                     System.out.print('.');
                 }
-                System.out.print(" ");
+                else if(hits[i][j]==Boolean.TRUE){
+                    System.out.print(ColorUtil.colorize('X', ColorUtil.Color.RED));
+                }
+                System.out.print('X');
             }
             System.out.println();
         }
