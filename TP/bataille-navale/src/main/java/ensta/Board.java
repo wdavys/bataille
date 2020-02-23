@@ -125,7 +125,9 @@ public class Board implements IBoard{
     }
 
     public Hit sendHit(int x, int y) {
-
+        if (hasShip(x, y)) {
+            hits[][] = true;
+        }
         return 
     }
 }
