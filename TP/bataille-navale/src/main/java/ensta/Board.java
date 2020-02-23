@@ -68,9 +68,12 @@ public class Board implements IBoard{
                     System.out.print('.');
                 }
                 else if(hits[i][j]==Boolean.TRUE){
-                    System.out.print(ColorUtil.colorize('X', ColorUtil.Color.RED));
+                    System.out.print(ColorUtil.colorize('X',ColorUtil.Color.RED));
                 }
-                System.out.print('X');
+                else{
+                    System.out.print('X');
+                }
+                System.out.print(' ');
             }
             System.out.println();
         }
@@ -81,7 +84,7 @@ public class Board implements IBoard{
     }
 
     public boolean hasShip(int x, int y){
-        ShipState ship_test=ships[x][y];
+        char ship_test=ships[x][y].getShip().getLabel();
         return(ship_test!='D' && ship_test!='S' && ship_test!='B' && ship_test!='C');
     }
 
@@ -91,7 +94,7 @@ public class Board implements IBoard{
                 throw new Exception();
             }
             else {
-                ships[x+ix*i][y+iy*i]=ship.getLabel();
+                ships[x+ix*i][y+iy*i]=new ShipState(ship);
             }
         } 
     }
@@ -129,10 +132,10 @@ public class Board implements IBoard{
         return(hits[x][y]);
     }
 
-    public Hit sendHit(int x, int y) {
+    /*public Hit sendHit(int x, int y) {
         if (hasShip(x, y)) {
             hits[][] = true;
         }
         return 
-    }
+    }*/
 }

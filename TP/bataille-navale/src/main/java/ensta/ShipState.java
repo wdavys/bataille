@@ -1,3 +1,7 @@
+//package ensta;
+
+//import ensta.ship_class.*;
+
 public class ShipState{
     private AbstractShip ship;
     private boolean struck;
@@ -17,10 +21,10 @@ public class ShipState{
 
     public String toString(){
         if (struck){
-            return(colorize(ship.getLabel(),RED));
+            return(ColorUtil.colorize(ship.getLabel(),ColorUtil.Color.RED));
         }
         else {
-            return(ship.getLabel());
+            return(""+ship.getLabel());
         } 
     }
 

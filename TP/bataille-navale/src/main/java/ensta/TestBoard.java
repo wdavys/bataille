@@ -1,6 +1,7 @@
+//package ensta;
 public class TestBoard{
     public static void main(String args[]){
-        Board test=new Board("plateau test", 26);
+        Board test=new Board("plateau test");
         test.print();
     }
 }

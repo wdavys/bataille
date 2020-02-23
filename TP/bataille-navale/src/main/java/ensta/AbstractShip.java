@@ -1,4 +1,4 @@
-import com.sun.org.apache.regexp.internal.recompile;
+//package ensta.ships_class;
 
 abstract class AbstractShip {
     private final char label;

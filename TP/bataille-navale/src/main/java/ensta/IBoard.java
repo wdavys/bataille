@@ -1,3 +1,4 @@
+//package ensta;
 public interface IBoard { 
 
     /**
