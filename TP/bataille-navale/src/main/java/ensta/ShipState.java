@@ -13,6 +13,7 @@ public class ShipState{
 
     public void addStrike(){
         struck=true;
+        this.ship.addStrike();
     }
 
     public boolean isStruck(){
@@ -31,4 +32,8 @@ public class ShipState{
     public AbstractShip getShip(){
         return(ship);
     } 
+
+    public void setShip(AbstractShip ship){
+        this.ship=ship;
+    }
 }

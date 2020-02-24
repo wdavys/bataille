@@ -51,7 +51,7 @@ public class Board implements IBoard{
                     System.out.print('.');
                 }
                 else{
-                    System.out.print(x.getShip().getLabel());
+                    System.out.print(x.toString());
                 }
                 System.out.print(' ');
             }
@@ -84,7 +84,7 @@ public class Board implements IBoard{
     }
 
     public boolean hasShip(int x, int y){
-        return (ships[x][y].getShip() != null);
+        return (ships[y][x].getShip() != null);
     }
 
     public void putShipAux(AbstractShip ship, int x, int y, int ix, int iy)throws Exception {
@@ -92,9 +92,9 @@ public class Board implements IBoard{
             if (hasShip(x+ix*i, y+iy*i)){
                 throw new Exception();
             }
-            else {
-                ships[x+ix*i][y+iy*i]=new ShipState(ship);
-            }
+        }
+        for (int i=0; i<ship.getSize(); i++){
+            ships[y+iy*i][x+ix*i]=new ShipState(ship);
         } 
     }
 
@@ -122,19 +122,23 @@ public class Board implements IBoard{
 
 
     public void setHit(boolean hit, int x, int y){
-        if (hasShip(x, y)){
-            hits[x][y]=hit;
+        if (hit){
+            hits[y][x]=Boolean.TRUE;
+        }
+        else{
+            hits[y][x]=Boolean.FALSE;
         }
     }
 
     public Boolean getHit(int x, int y){
-        return(hits[x][y]);
+        return(hits[y][x]);
     }
 
     public Hit sendHit(int x, int y) {
         if (hasShip(x, y)) {
-            if (ships[x][y].getShip().isSunk()) {
-                switch (ships[x][y].getShip().getLabel()) {
+            ships[y][x].addStrike();
+            if (ships[y][x].getShip().isSunk()) {
+                switch (ships[y][x].getShip().getLabel()) {
                     case 'D' : return Hit.DESTROYER;
                     case 'S' : return Hit.SUBMARINE;
                     case 'C' : return Hit.CARRIER;
