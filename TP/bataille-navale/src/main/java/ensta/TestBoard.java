@@ -19,8 +19,8 @@ public class TestBoard{
         Player player_test=new Player(test,test_opponent,ships);
         player_test.putShips();
 
-        test.sendHit(3,4);
-        test.sendHit(3,3);
+        System.out.println(test.sendHit(3,4));
+        System.out.println(test.sendHit(3,3));
         test.print();
 
     }

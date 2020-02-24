@@ -114,7 +114,8 @@ public class Board implements IBoard{
                     putShipAux(ship, x, y, -1, 0);
                 break;
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.err.println("Le bateau sort du champ de bataille ou recouvre un autre bateau, essayez à nouveau.");
             throw e;
         };
