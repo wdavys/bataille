@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -24,16 +25,25 @@ public class Game {
     }
 
     public Game init() {
-        if (!loadSave()) {
+        if (true) { // on utilise plus loadsave car nous n'avons pas implémenté les questions bonus
             // init attributes
             System.out.println("entre ton nom:");
 
             // TODO use a scanner to read player name
-
+            Scanner in=new Scanner(System.in);
+            String name=in.nextLine();
+            
             // TODO init boards
             Board b1, b2;
-
+            b1=new Board(name);
+            b2=new Board("AI");
+            
             // TODO init this.player1 & this.player2
+            List<AbstractShip> ships=createDefaultShips();
+
+            this.player1=new Player(b1, b2, ships);
+            this.player2=new AIPlayer(b2, b1, ships);
+            
 
             b1.print();
             // place player ships
@@ -55,18 +65,19 @@ public class Game {
         b1.print();
         boolean done;
         do {
-            hit = Hit.MISS; // TODO player1 send a hit
+            hit = player1.sendHit(coords); // TODO player1 send a hit
             boolean strike = hit != Hit.MISS; // TODO set this hit on his board (b1)
+            b1.setHit(strike,coords[0],coords[1]);
 
             done = updateScore();
             b1.print();
             System.out.println(makeHitMessage(false /* outgoing hit */, coords, hit));
 
-            save();
+            //save();
 
             if (!done && !strike) {
                 do {
-                    hit = Hit.MISS; // TODO player2 send a hit.
+                    hit = player2.sendHit(coords); // TODO player2 send a hit.
 
                     strike = hit != Hit.MISS;
                     if (strike) {
@@ -76,7 +87,7 @@ public class Game {
                     done = updateScore();
 
                     if (!done) {
-                        save();
+                        //save();
                     }
                 } while (strike && !done);
             }
@@ -88,6 +99,7 @@ public class Game {
         sin.close();
     }
 
+    /*
     private void save() {
         try {
             // TODO bonus 2 : uncomment
@@ -102,6 +114,7 @@ public class Game {
         }
     }
 
+
     private boolean loadSave() {
         if (SAVE_FILE.exists()) {
             try {
@@ -113,7 +126,7 @@ public class Game {
             }
         }
         return false;
-    }
+    }*/
 
     private boolean updateScore() {
         for (Player player : new Player[] { player1, player2 }) {
@@ -140,7 +153,7 @@ public class Game {
         case MISS:
             msg = hit.toString();
             break;
-        case STIKE:
+        case STRIKE:
             msg = hit.toString();
             color = ColorUtil.Color.RED;
             break;
@@ -149,12 +162,12 @@ public class Game {
             color = ColorUtil.Color.RED;
         }
         msg = String.format("%s Frappe en %c%d : %s", incoming ? "<=" : "=>", ((char) ('A' + coords[0])),
-                (coords[1] + 1), msg);
+                (coords[1]), msg);
         return ColorUtil.colorize(msg, color);
     }
 
     private static List<AbstractShip> createDefaultShips() {
-        return Arrays.asList(new AbstractShip[] { new Destroyer(), new Submarine(), new Submarine(), new BattleShip(),
+        return Arrays.asList(new AbstractShip[] { new Destroyer(), new Submarine(), new Submarine(), new Battleship(),
                 new Carrier() });
     }
 }

@@ -25,6 +25,8 @@ public class Board implements IBoard{
 
     public void print(){
 
+        System.out.println(name);
+
         int code_A=(int)'A';
         System.out.print("   ");
         for(int j=0;j<size;j ++){
